@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">QR Scanner App</string>
+    <string name="text_copied">Copied!</string>
+</resources>
