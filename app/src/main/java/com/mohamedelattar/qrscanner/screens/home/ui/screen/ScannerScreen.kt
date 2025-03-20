@@ -1,33 +1,32 @@
-package com.mohamedelattar.qrscanner.screens.home.ui
+package com.mohamedelattar.qrscanner.screens.home.ui.screen
 
 import android.Manifest
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.journeyapps.barcodescanner.ScanContract
 import com.mohamedelattar.domain.model.QRItem
+import com.mohamedelattar.qrscanner.screens.composables.FloatingActionButtonComp
 import com.mohamedelattar.qrscanner.screens.composables.ScannedQRContentSheet
+import com.mohamedelattar.qrscanner.screens.composables.TabsComposable
+import com.mohamedelattar.qrscanner.screens.composables.TopAppBarComp
 import com.mohamedelattar.qrscanner.screens.home.viewmodel.HomeContract
 import com.mohamedelattar.qrscanner.screens.home.viewmodel.HomeViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScannerScreen(
     modifier: Modifier = Modifier,
@@ -79,40 +78,44 @@ fun ScannerScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBarComp(
+                hasAction = true,
+                title = stringResource(com.mohamedelattar.qrscanner.R.string.qrscanner),
+                onAction = {
+
+                }
+            )
+        },
         floatingActionButton = {
-            FloatingActionButton(
+            FloatingActionButtonComp(
                 onClick = {
                     qrCodeLauncher.launch(
                         scanOptions
                     )
-                },
-                modifier = Modifier.padding(16.dp)
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
-                )
-
-            }
+                }
+            )
         }
 
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
+            TabsComposable(
+                state = state,
+                onAction = viewModel::onAction
+            )
+
             if (state.showItemDataSheet) {
                 ScannedQRContentSheet(
                     qrContent = state.qrContent,
                     onDismiss = {
-                        viewModel.onAction(HomeContract.QRScannerActions.ShowItemDataSheet(false))
+                        viewModel.onAction(
+                            HomeContract.QRScannerActions.ShowItemDataSheet(false)
+                        )
                     }
-
                 )
             }
-
 
         }
 

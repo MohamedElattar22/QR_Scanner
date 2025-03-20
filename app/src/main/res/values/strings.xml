@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">QR Scanner App</string>
     <string name="text_copied">Copied!</string>
+    <string name="qrscanner">QRScanner</string>
+    <string name="warning_guide_msg">Place the QR code inside the frame to scan,\nplease avoid shaking the device</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="favourites">Favourites</string>
 </resources>

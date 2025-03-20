@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,13 +17,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mohamedelattar.qrscanner.ui.theme.QRScannerAppTheme
+import com.mohamedelattar.domain.model.QRItem
+import com.mohamedelattar.qrscanner.R
 
 @Composable
-fun QRHistoryListItem(modifier: Modifier = Modifier) {
+fun QRHistoryListItem(
+    modifier: Modifier = Modifier,
+    qrItem: QRItem,
+    onAddFavorite: (Boolean, QRItem) -> Unit = { _, _ ->
+
+    },
+) {
+    val iconContent = when (qrItem.isFavorite) {
+        true -> Icons.Default.Favorite
+        false -> Icons.Outlined.FavoriteBorder
+    }
     ListItem(
         colors = ListItemDefaults.colors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -36,27 +49,36 @@ fun QRHistoryListItem(modifier: Modifier = Modifier) {
         headlineContent = {
 
             Text(
-                text = "Title",
+                text = qrItem.title,
                 color = MaterialTheme.colorScheme.onSurface
             )
         },
         supportingContent = {
             Text(
-                text = "this is the supporting content for the images",
-                color = MaterialTheme.colorScheme.onSurface,
+                text = qrItem.content,
+                color = MaterialTheme.colorScheme.outline,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-
                 )
 
 
         },
         trailingContent = {
-            Icon(
-                imageVector = Icons.Default.Favorite,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
+            IconButton(
+                onClick = {
+                    onAddFavorite(
+                        !qrItem.isFavorite,
+                        qrItem
+                    )
+                }
+            ) {
+                Icon(
+                    imageVector = iconContent,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+
 
 
         },
@@ -71,23 +93,13 @@ fun QRHistoryListItem(modifier: Modifier = Modifier) {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Info,
+                    imageVector = ImageVector.vectorResource(id = R.drawable.qr_small),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary
                 )
-
-
             }
         },
 
         )
 
-}
-
-@Preview
-@Composable
-private fun saPreview() {
-    QRScannerAppTheme {
-        QRHistoryListItem()
-    }
 }
