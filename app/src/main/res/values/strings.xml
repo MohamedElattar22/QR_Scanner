@@ -9,4 +9,10 @@
     <string name="here_you_will_find">Here you will find your favourite QR Scans</string>
     <string name="scan_history">Scan History</string>
     <string name="find_scan_history">Here you will find your recent scanned QR codes</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_descreption">The permission is needed to scan QR codes. Please grant permission.</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="setting_description">This permission is needed to scan QR codes. Please enable it in settings.</string>
+    <string name="grant_permission">Grant Permission</string>
 </resources>

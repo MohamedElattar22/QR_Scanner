@@ -71,6 +71,23 @@ class HomeViewModel @Inject constructor(
                 }
 
             }
+
+            is HomeContract.QRScannerActions.ShowRationaleDialog -> {
+                _state.update {
+                    it.copy(
+                        showRationaleDialog = action.show
+                    )
+                }
+
+            }
+
+            is HomeContract.QRScannerActions.ShowSettingsDialog -> {
+                _state.update {
+                    it.copy(
+                        showSettingsDialog = action.show
+                    )
+                }
+            }
         }
     }
 
