@@ -12,7 +12,6 @@ QR Scanner is an intuitive Android application designed to quickly and efficient
 - **Rapid QR Code Scanning:** Fast detection and decoding of QR codes using your device's camera.
 - **User-Friendly Interface:** Easy-to-navigate UI, ensuring a seamless scanning experience.
 - **Scan History:** Automatically logs scanned QR codes for quick reference later.
-- **Flashlight Support:** Built-in flashlight toggle for clear scanning even in low-light environments.
 
 ## 🛠️ Architecture
 
