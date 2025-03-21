@@ -26,7 +26,8 @@ The project adopts a modular architecture pattern and MVI to maintain clean sepa
 - **Kotlin** - Main programming language.
 - **Android SDK** - Framework for Android app development.
 - **Jetpack Compose** - For building modern UI.
-- **ZXing ("Zebra Crossing")** - Library used for processing and decoding QR codes.
+- **ZXing** - Library used for processing and decoding QR codes.
+- **Room** - Local database persistence for Android.
 - **Hilt DI** - Dependency injection library for Android.
 - **MocKk - Junit4** - Testing Libraries.
 
