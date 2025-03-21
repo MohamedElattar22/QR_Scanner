@@ -55,22 +55,15 @@ fun QRListItem(
             )
             .padding(5.dp),
         headlineContent = {
-
-            Text(
-                text = qrItem.title,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        },
-        supportingContent = {
             Text(
                 text = qrItem.content,
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                )
-
-
+            )
         },
+
         trailingContent = {
             IconButton(
                 onClick = {
