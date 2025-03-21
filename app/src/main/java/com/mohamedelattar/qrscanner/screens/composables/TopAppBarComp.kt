@@ -25,6 +25,7 @@ fun TopAppBarComp(
     onNavigation: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
+
         modifier = modifier,
         title = {
             Text(
@@ -35,7 +36,7 @@ fun TopAppBarComp(
             if (hasAction) {
                 IconButton(
                     onClick = {
-                        onAction
+                        onAction()
                     }
                 ) {
                     Icon(
@@ -51,7 +52,7 @@ fun TopAppBarComp(
             if (hasNavigation) {
                 IconButton(
                     onClick = {
-                        onNavigation
+                        onNavigation()
                     }
                 ) {
                     Icon(

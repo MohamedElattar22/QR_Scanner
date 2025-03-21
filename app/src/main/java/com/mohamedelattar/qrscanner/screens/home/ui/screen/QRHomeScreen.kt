@@ -17,8 +17,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.journeyapps.barcodescanner.ScanContract
 import com.mohamedelattar.domain.model.QRItem
+import com.mohamedelattar.qrscanner.navigation.NavigationRoutes
 import com.mohamedelattar.qrscanner.screens.composables.FloatingActionButtonComp
 import com.mohamedelattar.qrscanner.screens.composables.ScannedQRContentSheet
 import com.mohamedelattar.qrscanner.screens.composables.TabsComposable
@@ -28,8 +30,8 @@ import com.mohamedelattar.qrscanner.screens.home.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScannerScreen(
-    modifier: Modifier = Modifier,
+fun QRHomeScreen(
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -37,12 +39,13 @@ fun ScannerScreen(
     val context = LocalContext.current
 
     val qrCodeLauncher = rememberLauncherForActivityResult(
-        ScanContract()
+        contract = ScanContract()
     ) { result ->
 
         if (result.contents == null) {
             Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
         } else {
+
             viewModel.onAction(
                 HomeContract.QRScannerActions.InsertQRItem(
                     QRItem(
@@ -67,22 +70,25 @@ fun ScannerScreen(
             viewModel.onAction(HomeContract.QRScannerActions.InitializeQRScanner)
         } else {
 
+
         }
 
     }
 
     LaunchedEffect(Unit) {
         launcher.launch(Manifest.permission.CAMERA)
+        viewModel.onAction(HomeContract.QRScannerActions.GetAllQRItems)
     }
 
 
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBarComp(
                 hasAction = true,
                 title = stringResource(com.mohamedelattar.qrscanner.R.string.qrscanner),
                 onAction = {
+                    navController.navigate(NavigationRoutes.FavouritesScreen.route)
 
                 }
             )

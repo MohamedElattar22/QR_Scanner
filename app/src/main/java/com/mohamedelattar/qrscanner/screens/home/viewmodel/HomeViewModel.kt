@@ -34,7 +34,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         getAllQRItems()
-
     }
 
     fun onAction(action: HomeContract.QRScannerActions) {

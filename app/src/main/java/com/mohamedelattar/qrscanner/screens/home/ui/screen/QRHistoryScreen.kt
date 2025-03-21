@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mohamedelattar.qrscanner.screens.composables.QRHistoryListItem
+import com.mohamedelattar.qrscanner.screens.composables.QRListItem
 import com.mohamedelattar.qrscanner.screens.home.viewmodel.HomeContract
 
 @Composable
@@ -24,7 +24,7 @@ fun QRHistoryScreen(
             .fillMaxSize()
     ) {
         items(state.qrItems, key = { it.id }) {
-            QRHistoryListItem(
+            QRListItem(
                 qrItem = it,
                 onAddFavorite = { isFavourite, qrItem ->
                     onAction(

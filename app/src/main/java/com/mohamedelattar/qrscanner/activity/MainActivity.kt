@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.mohamedelattar.qrscanner.screens.home.ui.screen.ScannerScreen
+import androidx.navigation.compose.rememberNavController
+import com.mohamedelattar.qrscanner.navigation.NavGraph
+import com.mohamedelattar.qrscanner.navigation.NavigationRoutes
 import com.mohamedelattar.qrscanner.ui.theme.QRScannerAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,8 +16,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             QRScannerAppTheme {
-                ScannerScreen()
+                NavGraph(
+                    startDestination = NavigationRoutes.QRHomeScreen.route,
+                    navController = navController
+                )
             }
         }
     }

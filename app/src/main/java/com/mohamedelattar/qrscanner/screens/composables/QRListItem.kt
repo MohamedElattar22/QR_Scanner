@@ -25,7 +25,7 @@ import com.mohamedelattar.domain.model.QRItem
 import com.mohamedelattar.qrscanner.R
 
 @Composable
-fun QRHistoryListItem(
+fun QRListItem(
     modifier: Modifier = Modifier,
     qrItem: QRItem,
     onAddFavorite: (Boolean, QRItem) -> Unit = { _, _ ->

@@ -5,6 +5,7 @@ import com.mohamedelattar.domain.model.QRItem
 
 interface IQRScannerRepository {
     suspend fun initializeQRScanner(): ScanOptions
+
     suspend fun insertQRItem(qrItem: QRItem)
     suspend fun addItemToFavourite(qrItem: QRItem)
     suspend fun removeItemFromFavourite(qrItem: QRItem)
