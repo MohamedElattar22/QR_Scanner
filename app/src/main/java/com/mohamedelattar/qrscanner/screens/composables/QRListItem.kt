@@ -1,6 +1,7 @@
 package com.mohamedelattar.qrscanner.screens.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,6 +32,7 @@ fun QRListItem(
     onAddFavorite: (Boolean, QRItem) -> Unit = { _, _ ->
 
     },
+    onItemClick: (QRItem) -> Unit = {},
 ) {
     val iconContent = when (qrItem.isFavorite) {
         true -> Icons.Default.Favorite
@@ -41,6 +43,12 @@ fun QRListItem(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
         ),
         modifier = modifier
+            .clickable(
+                interactionSource = null,
+                indication = null
+            ) {
+                onItemClick(qrItem)
+            }
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(10.dp)

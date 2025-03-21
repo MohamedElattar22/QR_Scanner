@@ -35,8 +35,33 @@ class FavouriteItemsViewModel @Inject constructor(
             is FavouriteItemsContract.FavouriteItemsActions.RemoveItemFromFavourite -> {
                 removeItemFromFavourite(action.qrItem)
             }
+
+            is FavouriteItemsContract.FavouriteItemsActions.SelectQRItem -> {
+                selectQRItem(action.qrItem)
+            }
+
+            is FavouriteItemsContract.FavouriteItemsActions.ShowDetailsSheet -> {
+                showDetailsSheet(action.show)
+
+            }
         }
 
+    }
+
+    private fun showDetailsSheet(showSheet: Boolean) {
+        _state.update {
+            it.copy(
+                showDetailsSheet = showSheet
+            )
+        }
+    }
+
+    private fun selectQRItem(item: QRItem) {
+        _state.update {
+            it.copy(
+                selectedQRItem = item
+            )
+        }
     }
 
     private fun removeItemFromFavourite(item: QRItem) {

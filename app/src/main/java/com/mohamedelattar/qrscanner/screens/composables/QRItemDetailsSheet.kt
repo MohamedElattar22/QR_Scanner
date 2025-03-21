@@ -26,7 +26,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,23 +37,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mohamedelattar.domain.model.QRItem
 import com.mohamedelattar.qrscanner.R
-import com.mohamedelattar.qrscanner.ui.theme.QRScannerAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScannedQRContentSheet(
+fun QRItemDetailsSheet(
     modifier: Modifier = Modifier,
-    qrContent: String = "",
+    qrItem: QRItem,
     onDismiss: () -> Unit = {},
 ) {
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false
     )
-    var textSize by remember { mutableStateOf(14.sp) }
     var copyClicked by rememberSaveable { mutableStateOf(false) }
     val clipboardManager = LocalClipboardManager.current
     val copyIconContent = when (copyClicked) {
@@ -85,15 +82,15 @@ fun ScannedQRContentSheet(
                 )
 
                 Text(
-                    "Scan Successful !",
+                    "QR Details",
                     fontSize = 21.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
-                    "Here is your scan results",
-                    fontSize = textSize,
+                    "Here is your QR results",
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.outline
                 )
@@ -112,7 +109,7 @@ fun ScannedQRContentSheet(
                     horizontalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     Text(
-                        text = qrContent,
+                        text = qrItem.content,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .weight(1f)
@@ -128,7 +125,7 @@ fun ScannedQRContentSheet(
                         IconButton(
                             onClick = {
                                 val clipData =
-                                    ClipData.newPlainText("plain text", qrContent)
+                                    ClipData.newPlainText("plain text", qrItem.content)
                                 val clipEntry = ClipEntry(clipData)
                                 clipboardManager.setClip(clipEntry)
                                 copyClicked = !copyClicked
@@ -165,16 +162,6 @@ fun ScannedQRContentSheet(
 
 
         }
-
-    }
-
-}
-
-@PreviewLightDark
-@Composable
-private fun asdadPreview() {
-    QRScannerAppTheme {
-        ScannedQRContentSheet()
 
     }
 

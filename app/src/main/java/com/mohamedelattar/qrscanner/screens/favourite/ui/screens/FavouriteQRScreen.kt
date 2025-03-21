@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.mohamedelattar.qrscanner.screens.composables.QRItemDetailsSheet
 import com.mohamedelattar.qrscanner.screens.composables.QRListItem
 import com.mohamedelattar.qrscanner.screens.composables.TopAppBarComp
 import com.mohamedelattar.qrscanner.screens.favourite.viewmodel.FavouriteItemsContract
@@ -58,11 +59,37 @@ fun FavouriteQRScreen(
                                     qrItem
                                 )
                             )
+                        },
+                        onItemClick = {
+                            viewModel.onAction(
+                                FavouriteItemsContract.FavouriteItemsActions.ShowDetailsSheet(
+                                    true
+                                )
+                            )
+
+                            viewModel.onAction(
+                                FavouriteItemsContract.FavouriteItemsActions.SelectQRItem(
+                                    it
+                                )
+                            )
                         }
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }
+            if (state.showDetailsSheet) {
+                QRItemDetailsSheet(
+                    qrItem = state.selectedQRItem,
+                    onDismiss = {
+                        viewModel.onAction(
+                            FavouriteItemsContract.FavouriteItemsActions.ShowDetailsSheet(
+                                false
+                            )
+                        )
+                    }
+                )
+            }
+
         }
 
 

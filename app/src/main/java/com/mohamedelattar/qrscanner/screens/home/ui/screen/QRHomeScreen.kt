@@ -68,11 +68,7 @@ fun QRHomeScreen(
     ) { isGranted ->
         if (isGranted) {
             viewModel.onAction(HomeContract.QRScannerActions.InitializeQRScanner)
-        } else {
-
-
         }
-
     }
 
     LaunchedEffect(Unit) {
