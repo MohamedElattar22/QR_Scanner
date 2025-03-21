@@ -1,22 +1,21 @@
 package com.mohamedelattar.qrscanner.screens.favourite.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.mohamedelattar.qrscanner.R
+import com.mohamedelattar.qrscanner.screens.composables.EmptyIndicatorScreen
 import com.mohamedelattar.qrscanner.screens.composables.QRItemDetailsSheet
-import com.mohamedelattar.qrscanner.screens.composables.QRListItem
 import com.mohamedelattar.qrscanner.screens.composables.TopAppBarComp
 import com.mohamedelattar.qrscanner.screens.favourite.viewmodel.FavouriteItemsContract
 import com.mohamedelattar.qrscanner.screens.favourite.viewmodel.FavouriteItemsViewModel
@@ -47,36 +46,39 @@ fun FavouriteQRScreen(
         Column(
             modifier = Modifier.padding(innerPadding),
         ) {
-            LazyColumn(
-                modifier = Modifier.padding(10.dp)
-            ) {
-                items(state.favouriteItems, key = { it.id }) {
-                    QRListItem(
-                        qrItem = it,
-                        onAddFavorite = { _, qrItem ->
-                            viewModel.onAction(
-                                FavouriteItemsContract.FavouriteItemsActions.RemoveItemFromFavourite(
-                                    qrItem
-                                )
+            if (state.favouriteItems.isEmpty()) {
+                EmptyIndicatorScreen(
+                    imageVector = ImageVector.vectorResource(R.drawable.folder_heart),
+                    title = stringResource(R.string.favourite_scans),
+                    description = stringResource(R.string.here_you_will_find)
+                )
+            } else {
+                FavouriteListScreen(
+                    favouriteItems = state.favouriteItems,
+                    onAddFavorite = {
+                        viewModel.onAction(
+                            FavouriteItemsContract.FavouriteItemsActions.RemoveItemFromFavourite(
+                                it
                             )
-                        },
-                        onItemClick = {
-                            viewModel.onAction(
-                                FavouriteItemsContract.FavouriteItemsActions.ShowDetailsSheet(
-                                    true
-                                )
+                        )
+                    },
+                    onItemClick = {
+                        viewModel.onAction(
+                            FavouriteItemsContract.FavouriteItemsActions.ShowDetailsSheet(
+                                true
                             )
+                        )
 
-                            viewModel.onAction(
-                                FavouriteItemsContract.FavouriteItemsActions.SelectQRItem(
-                                    it
-                                )
+                        viewModel.onAction(
+                            FavouriteItemsContract.FavouriteItemsActions.SelectQRItem(
+                                it
                             )
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
+                        )
+                    }
+
+                )
             }
+
             if (state.showDetailsSheet) {
                 QRItemDetailsSheet(
                     qrItem = state.selectedQRItem,

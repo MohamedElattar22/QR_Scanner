@@ -5,4 +5,8 @@
     <string name="warning_guide_msg">Place the QR code inside the frame to scan,\nplease avoid shaking the device</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="favourites">Favourites</string>
+    <string name="favourite_scans">Favourite Scans</string>
+    <string name="here_you_will_find">Here you will find your favourite QR Scans</string>
+    <string name="scan_history">Scan History</string>
+    <string name="find_scan_history">Here you will find your recent scanned QR codes</string>
 </resources>
