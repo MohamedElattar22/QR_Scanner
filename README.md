@@ -46,8 +46,8 @@ QR_Scanner/
 ---
 
 ## 🎥 Demo Video
+https://github.com/user-attachments/assets/1718a3bf-ed9a-4f51-87e8-6d6eb9731a51
 
-*[Insert Demo Video Here]*
 
 
 
